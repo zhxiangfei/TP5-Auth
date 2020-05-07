@@ -21,8 +21,12 @@ class Hospituser extends Base
 		$list = Db::view('hospit_user')
     		->view('hospit_role','role_name','hospit_user.hospitrole_id = hospit_role.id')
     		->where($map)
-    		->paginate(15);
-    	
+    		->paginate(15)
+            ->each(function ($item,$key)
+            {
+                $item['operate'] = showOperate($this->makeButton($item['id']));
+                return $item;
+            });
     	$this->assign(['list'=>$list]);
         return $this->fetch();
     }
@@ -204,6 +208,30 @@ class Hospituser extends Base
         }else{
             return apiResponse('110');
         }
+    }
+
+
+    /**
+     * 拼装操作按钮
+     * @param $id
+     * @return array
+     */
+    private function makeButton($id)
+    {
+        return [
+            '修改' => [
+                'auth' => 'home/Hospituser/edit',
+                'href' => url('home/Hospituser/edit', ['id' => $id]),
+                'btnStyle' => 'normal',
+                'menu_icon' => 'edit',
+            ],
+            '删除' => [
+                'auth' => 'home/Hospituser/del',
+                'href' => "javascript:del(" . $id . ")",
+                'btnStyle' => 'primary',
+                'menu_icon' => 'trash',
+            ],
+        ];
     }
 
 }

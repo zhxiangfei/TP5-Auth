@@ -15,7 +15,9 @@
 	    <div class="layui-card">
 	      	<div class="layui-form layui-card-header layuiadmin-card-header-auto">
 	      		<div class="layui-btn-group">
+	      			{if authCheck('home/hospituser/add')}
 				    <a href="/home/hospituser/add"><button type="button" class="layui-btn layui-btn-normal add"><i class="fa fa-plus" aria-hidden="true"></i> 添加</button></a>
+				    {/if}
     				<!-- <button type="button" class="layui-btn layui-btn-primary del"><i class="fa fa-trash" aria-hidden="true"></i> 删除</button> -->
 				</div>
 					
@@ -52,8 +54,12 @@
 							<td>姓名</td>
 							<td>角色组</td>
 							<td>电话</td>
+							{if authCheck('home/hospituser/match')}
 							<td>分配权限</td>
+							{/if}
+							{if authCheck('home/hospituser/upStatus')}
 							<td>状态</td>
+							{/if}
 							<td>操作</td>
 						</tr>
 					</thead>
@@ -65,7 +71,10 @@
 							<td>{$vo.name}</td>
 							<td>{$vo.role_name}</td>
 							<td>{$vo.tel}</td>
+							{if authCheck('home/hospituser/match')}
 							<td><a href="/home/hospituser/match.html?id={$vo.id}&name={$vo.name}"><button class="layui-btn layui-btn-sm layui-btn-primary">分配权限</button></a></td>
+							{/if}
+							{if authCheck('home/hospituser/upStatus')}
 							<td>
 								<form action="" class="layui-form layui-form-pane" >
 				                  	{if condition="$vo.status eq 0"}
@@ -75,6 +84,7 @@
 					                {/if}
 				                </form>
 							</td>
+							{/if}
 							<td>
 								<div class="layui-btn-group">
 									<button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="edit" onclick="edit({$vo.id})">
@@ -109,7 +119,7 @@
 		//监听指定开关
 		form.on('switch(switch)', function(data){
 		    var status = this.checked;
-		    console.log(status)
+		    
 		    if (status == true) {
 		      status = 0;
 		    }else{

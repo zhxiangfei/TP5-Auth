@@ -40,7 +40,7 @@
               贤心
             </a>
           </li>
-          <li class="layui-nav-item"><a href=""> <i class="fa fa-sign-in fa-lg"></i> 退出</a></li>
+          <li class="layui-nav-item"><a href="/home/login/logout"> <i class="fa fa-sign-in fa-lg"></i> 退出</a></li>
         </ul>
       </div>
       
@@ -49,73 +49,23 @@
         <div class="layui-side-scroll" style="background: #001529">
                  
           <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu" style="margin-top: 10px">
-            <li data-name="index" class="layui-nav-item">
-              <a href="javascript:;" lay-href="/home/index/main" lay-tips="控制台" lay-direction="2">
-                <i class="layui-icon layui-icon-auz"></i>
-                <cite>控制台</cite>
-              </a>
-            </li>
-            <li data-name="drug" class="layui-nav-item">
-              <a href="javascript:;" lay-href="/home/drug/index" lay-tips="药品管理" lay-direction="2">
-                <i class="layui-icon layui-icon-auz"></i>
-                <cite>药品管理</cite>
-              </a>
-            </li>
-            <li data-name="presc" class="layui-nav-item">
-              <a href="javascript:;" lay-href="/home/presc/index" lay-tips="处方汇总" lay-direction="2">
-                <i class="layui-icon layui-icon-auz"></i>
-                <cite>处方汇总</cite>
-              </a>
-            </li>
-            <li data-name="adrm" class="layui-nav-item">
-              <a href="javascript:;" lay-href="/home/adrm/index" lay-tips="不良反应监测" lay-direction="2">
-                <i class="layui-icon layui-icon-auz"></i>
-                <cite>不良反应监测</cite>
-              </a>
-            </li>
-                       
-            <li data-name="note" class="layui-nav-item">
-              <a href="javascript:;" lay-href="/home/note/index" lay-tips="公告通知" lay-direction="2">
-                <i class="layui-icon layui-icon-auz"></i>
-                <cite>公告通知</cite>
-              </a>
-            </li>
-            <li data-name="news" class="layui-nav-item">
-              <a href="javascript:;" lay-href="/home/news/index" lay-tips="新闻动态" lay-direction="2">
-                <i class="layui-icon layui-icon-auz"></i>
-                <cite>新闻动态</cite>
-              </a>
-            </li>
-            <li data-name="zhengce" class="layui-nav-item">
-              <a href="javascript:;" lay-href="/home/zhengce/index" lay-tips="政策法规" lay-direction="2">
-                <i class="layui-icon layui-icon-auz"></i>
-                <cite>政策法规</cite>
-              </a>
-            </li>
-            <li data-name="hospit" class="layui-nav-item">
-              <a href="javascript:;" lay-href="/home/hospit/index" lay-tips="医院管理" lay-direction="2">
-                <i class="layui-icon layui-icon-auz"></i>
-                <cite>医院管理</cite>
-              </a>
-            </li>
-            <li data-name="hospituser" class="layui-nav-item">
-              <a href="javascript:;" lay-href="/home/hospituser/index" lay-tips="系统管理员" lay-direction="2">
-                <i class="layui-icon layui-icon-auz"></i>
-                <cite>系统管理员</cite>
-              </a>
-            </li>
-            <li data-name="hospitrole" class="layui-nav-item">
-              <a href="javascript:;" lay-href="/home/hospitrole/index" lay-tips="系统角色" lay-direction="2">
-                <i class="layui-icon layui-icon-auz"></i>
-                <cite>系统角色</cite>
-              </a>
-            </li>
-            <li data-name="auth" class="layui-nav-item">
-              <a href="javascript:;" lay-href="/home/hospitauth/index" lay-tips="权限管理" lay-direction="2">
-                <i class="layui-icon layui-icon-auz"></i>
-                <cite>权限管理</cite>
-              </a>
-            </li>
+
+            {volist name="menu" id="item"}
+              <li  class="layui-nav-item">
+                <a href="javascript:;" {if condition="$item.href neq '#'"} lay-href="{$item.href}" {/if} lay-tips="{$item.title}" >
+                  <i class="fa fa-{$item.menu_icon}"></i>
+                  <cite>{$item.title}</cite>
+                </a>
+                {if !empty($item['child'])}
+                <dl class="layui-nav-child">
+
+                  {volist name="$item['child']" id="vo"}
+                    <dd><a lay-href="{$vo.href}">{$vo.title}</a></dd>
+                  {/volist}
+                </dl>
+                {/if}
+              </li>
+            {/volist}
           </ul>
         </div>
       </div>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  	<link rel="stylesheet" href="/home/layuiadmin/layui/css/layui.css" media="all">
+  	<link rel="stylesheet" href="/home/layuiadmin/style/admin.css" media="all">
+  	<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+</head>
+<body>
+	<div class="layui-card layadmin-header" style="display: block;">
+	  <div class="layui-breadcrumb" lay-filter="breadcrumb" style="visibility: visible;">
+	    <a href="/home/hospitrole/index">系统角色</a><span lay-separator="">/</span>
+	    <a><cite>分配权限</cite></a>
+	  </div>
+	</div>
+	<div class="layui-fluid">   
+	    <div class="layui-card">
+	    	<div class="layui-form layui-card-header layuiadmin-card-header-auto"> 
+	          【{$role_name}】分配权限
+	      	</div>
+	      	<div class="layui-card-body">
+	      		<form class="layui-form" action="" >
+	      			<input type="hidden" name="id" value="{$id}">
+				    <div class="layui-form-item">
+	      				<div id="test7" class="demo-tree"></div>
+	      			</div>
+				    <div class="layui-form-item">
+				      	<div class="layui-input-block">
+		                    <button type="submit" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="demo1">立即提交</button>
+		                    <button class="layui-btn layui-btn-primary" type="reset">重置</button>
+		                </div>
+				    </div>
+				</form>
+	      	</div>
+	    </div>
+	</div>
+
+</body>
+
+<script src="/home/layuiadmin/layui/layui.all.js"></script>
+<script type="text/javascript">
+
+	layui.use(['element', 'layer','form','tree','util'], function(){
+		var $ = layui.jquery
+		,layer = layui.layer
+		,element = layui.element
+		,form = layui.form
+		,tree = layui.tree
+		,util = layui.util;
+
+		var index2 = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+		var data = ''
+		// 获取权限列表
+		$.ajax({
+			url:"authlist",
+			type:"GET",
+			dataType:"JSON",
+			data:{id:$("input[name='id']").val()},
+			success:function (res) {
+				console.log(res)
+				
+				if (res.code == 200) {
+
+					data = res.data
+				}else{
+					data = ''
+				}
+			}
+		})
+		setTimeout(function(){ 
+			tree.render({
+			    elem: "#test7"
+			    ,data: data
+			    ,id: 'demoId1'
+			    ,showCheckbox: true
+		    	,showLine: true
+		 	});
+		 	layer.close(index2);
+		}, 500);
+
+		//监听提交
+  		var isclick= true;
+		form.on('submit(demo1)', function(data){
+
+			// 获取选中的项
+			var items =[];
+			$("input[same='layuiTreeCheck']:checked").each(function(){  
+		       	items.push($(this).val());
+	      	})
+	      	var id = $("input[name='id']").val();
+			
+			if (isclick) {
+				isclick= false;
+				$.ajax({
+					url:'match',
+					type:'POST',
+					data:{id:id,items:items},
+					dataType:"JSON",
+					success:function (res) {
+
+						if (res.code == '200') {
+
+							layer.msg(res.message, { icon:1, time: 1000 }, function(){
+								location.href = '/home/hospitrole/index';
+				            });
+						}else{
+							isclick = true;
+							layer.msg(res.message,{icon:5,time:1000})
+						}
+					}
+				})
+		    }
+		    return false;
+		});
+	});  
+
+</script>
+</html>

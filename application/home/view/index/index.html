@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>河南省中医医院药事质控中心</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="/home/layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="/home/layuiadmin/style/admin.css" media="all">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    .layui-nav .layui-this:after, .layui-nav-bar, .layui-nav-tree .layui-nav-itemed:after {
+
+      background-color:#1E9FFF !important;
+    }
+    .layui-side-menu .layui-nav .layui-nav-item a{
+      height: 30px;
+      line-height: 30px;
+    }
+    .layui-side-menu .layui-nav .layui-nav-item .layui-icon{
+      top: 60%;
+    }
+  </style>
+</head>
+<body class="layui-layout-body">
+  
+  <div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
+      <div class="layui-header" style="height: 80px; ">
+        <!-- 头部区域 -->
+        <div style="float: left; height: 80px; line-height: 80px; margin-left: 50px;">
+              <img src="/home/images/icon/logo.png" style="width: 50px; height: 50px">
+              <span style="font-weight: bold; font-size: 18px; padding: 0 20px;">河南省中医医院药事质控中心</span>
+        </div>
+        <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right" style="margin-top: 15px;margin-right: 40px">
+          <li class="layui-nav-item">
+            <a href="javascript:;">
+              <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+              贤心
+            </a>
+          </li>
+          <li class="layui-nav-item"><a href=""> <i class="fa fa-sign-in fa-lg"></i> 退出</a></li>
+        </ul>
+      </div>
+      
+      <!-- 侧边菜单 -->
+      <div class="layui-side layui-side-menu " style="margin-top: 80px">
+        <div class="layui-side-scroll" style="background: #001529">
+                 
+          <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu" style="margin-top: 10px">
+            <li data-name="index" class="layui-nav-item">
+              <a href="javascript:;" lay-href="/home/index/main" lay-tips="控制台" lay-direction="2">
+                <i class="layui-icon layui-icon-auz"></i>
+                <cite>控制台</cite>
+              </a>
+            </li>
+            <li data-name="drug" class="layui-nav-item">
+              <a href="javascript:;" lay-href="/home/drug/index" lay-tips="药品管理" lay-direction="2">
+                <i class="layui-icon layui-icon-auz"></i>
+                <cite>药品管理</cite>
+              </a>
+            </li>
+            <li data-name="presc" class="layui-nav-item">
+              <a href="javascript:;" lay-href="/home/presc/index" lay-tips="处方汇总" lay-direction="2">
+                <i class="layui-icon layui-icon-auz"></i>
+                <cite>处方汇总</cite>
+              </a>
+            </li>
+            <li data-name="adrm" class="layui-nav-item">
+              <a href="javascript:;" lay-href="/home/adrm/index" lay-tips="不良反应监测" lay-direction="2">
+                <i class="layui-icon layui-icon-auz"></i>
+                <cite>不良反应监测</cite>
+              </a>
+            </li>
+                       
+            <li data-name="note" class="layui-nav-item">
+              <a href="javascript:;" lay-href="/home/note/index" lay-tips="公告通知" lay-direction="2">
+                <i class="layui-icon layui-icon-auz"></i>
+                <cite>公告通知</cite>
+              </a>
+            </li>
+            <li data-name="news" class="layui-nav-item">
+              <a href="javascript:;" lay-href="/home/news/index" lay-tips="新闻动态" lay-direction="2">
+                <i class="layui-icon layui-icon-auz"></i>
+                <cite>新闻动态</cite>
+              </a>
+            </li>
+            <li data-name="zhengce" class="layui-nav-item">
+              <a href="javascript:;" lay-href="/home/zhengce/index" lay-tips="政策法规" lay-direction="2">
+                <i class="layui-icon layui-icon-auz"></i>
+                <cite>政策法规</cite>
+              </a>
+            </li>
+            <li data-name="hospit" class="layui-nav-item">
+              <a href="javascript:;" lay-href="/home/hospit/index" lay-tips="医院管理" lay-direction="2">
+                <i class="layui-icon layui-icon-auz"></i>
+                <cite>医院管理</cite>
+              </a>
+            </li>
+            <li data-name="hospituser" class="layui-nav-item">
+              <a href="javascript:;" lay-href="/home/hospituser/index" lay-tips="系统管理员" lay-direction="2">
+                <i class="layui-icon layui-icon-auz"></i>
+                <cite>系统管理员</cite>
+              </a>
+            </li>
+            <li data-name="hospitrole" class="layui-nav-item">
+              <a href="javascript:;" lay-href="/home/hospitrole/index" lay-tips="系统角色" lay-direction="2">
+                <i class="layui-icon layui-icon-auz"></i>
+                <cite>系统角色</cite>
+              </a>
+            </li>
+            <li data-name="auth" class="layui-nav-item">
+              <a href="javascript:;" lay-href="/home/hospitauth/index" lay-tips="权限管理" lay-direction="2">
+                <i class="layui-icon layui-icon-auz"></i>
+                <cite>权限管理</cite>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 页面标签 -->
+      <div class="layadmin-pagetabs" id="LAY_app_tabs" style="display: none;">
+        <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
+          <ul class="layui-tab-title" id="LAY_app_tabsheader">
+            <li lay-id="main.html" lay-attr="main.html" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- 主体内容 -->
+      <div class="layui-body" id="LAY_app_body" style="margin-top: -10px">
+        <div class="layadmin-tabsbody-item layui-show" >
+          <iframe src="main.html" frameborder="0" class="layadmin-iframe"></iframe>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <script src="/home/layuiadmin/layui/layui.js"></script>
+  <script>
+    layui.config({
+      base: '/home/layuiadmin/' //静态资源所在路径
+    }).extend({
+      index: 'lib/index' //主入口模块
+    }).use('index');
+  </script>
+  
+  <!-- 百度统计 -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?d214947968792b839fd669a4decaaffc";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+</body>
+</html>
+
+

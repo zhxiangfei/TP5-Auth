@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>河南省中医医院药事质控中心</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="/home/layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="/home/layuiadmin/style/admin.css" media="all">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+</head>
+<body>
+	<div class="layui-fluid">   
+	    <div class="layui-card">
+	      	<div class="layui-form layui-card-header layuiadmin-card-header-auto">
+	      		<div class="layui-btn-group">
+				    <a href="/home/hospituser/add"><button type="button" class="layui-btn layui-btn-normal add"><i class="fa fa-plus" aria-hidden="true"></i> 添加</button></a>
+    				<!-- <button type="button" class="layui-btn layui-btn-primary del"><i class="fa fa-trash" aria-hidden="true"></i> 删除</button> -->
+				</div>
+					
+				<!-- 搜索 start -->
+				<form action="" class="layui-form layui-form-pane" method="post" style="float: right; ">
+		            <div class="layui-form-item">
+		              <div class="layui-input-inline">
+		                <input type="text" name="name" placeholder="姓名" autocomplete="off" class="layui-input">
+		              </div>
+		              <button class="layui-btn layui-btn-normal">
+		                  <i class="fa fa-search" aria-hidden="true"></i>
+		              </button>
+		            </div>
+		        </form>
+				<!-- 搜索 end -->
+	      	</div>
+	      	<div class="layui-card-body">
+				<table class="layui-table box_table" lay-skin="nob" lay-size="lg" style="text-align: center;">
+					<colgroup>
+					    <col width="7%">
+					    <col width="12%">
+					    <col width="12%">
+					    <col width="12%">
+					    <col width="12%">
+					    <col width="12%">
+					    <col width="12%">
+					    <col width="20%">
+					    <col>
+					</colgroup>
+					<thead>
+						<tr>
+							<td>编号</td>
+							<td>用户名</td>
+							<td>姓名</td>
+							<td>角色组</td>
+							<td>电话</td>
+							<td>分配权限</td>
+							<td>状态</td>
+							<td>操作</td>
+						</tr>
+					</thead>
+					<tbody>
+						{volist name="list" id="vo"}
+						<tr style="border-bottom:1px solid #f0f0f0;" value="{$vo.id}">
+							<td>{$vo.id}</td>
+							<td>{$vo.username}</td>
+							<td>{$vo.name}</td>
+							<td>{$vo.role_name}</td>
+							<td>{$vo.tel}</td>
+							<td><a href="/home/hospituser/match.html?id={$vo.id}&name={$vo.name}"><button class="layui-btn layui-btn-sm layui-btn-primary">分配权限</button></a></td>
+							<td>
+								<form action="" class="layui-form layui-form-pane" >
+				                  	{if condition="$vo.status eq 0"}
+						        		<input type="checkbox" lay-filter="switch" checked="" name="switch" data-id='{$vo.id}' lay-skin="switch" lay-text="启用|禁用">
+					                  {elseif condition="$vo.status eq 1"/}
+						        		<input type="checkbox" lay-filter="switch" name="switch" lay-skin="switch" data-id='{$vo.id}' lay-text="启用|禁用">
+					                {/if}
+				                </form>
+							</td>
+							<td>
+								<div class="layui-btn-group">
+									<button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="edit" onclick="edit({$vo.id})">
+									    <i class="fa fa-edit" aria-hidden="true"></i> 修 改
+									</button>
+									<button type="button" class="layui-btn layui-btn-sm layui-btn-primary" onclick="del({$vo.id})">
+									    <i class="fa fa-trash" aria-hidden="true"></i> 删 除
+									</button>
+								</div>
+							</td>
+						</tr>
+						{/volist}
+					</tbody>
+				</table>
+				{$list->render()}
+	      	</div>
+	    </div>
+  	</div>
+
+</body>
+
+<script src="/home/js/jquery.js"></script>
+<script src="/home/layuiadmin/layui/layui.js"></script>
+<script type="text/javascript">
+	layui.use(['element', 'layer','form','table'], function(){
+		var $ = layui.jquery
+		,layer = layui.layer
+		,element = layui.element
+		,form = layui.form
+		,table = layui.table;
+		
+		//监听指定开关
+		form.on('switch(switch)', function(data){
+		    var status = this.checked;
+		    console.log(status)
+		    if (status == true) {
+		      status = 0;
+		    }else{
+		      status = 1;
+		    }
+		    var id = $(this).data('id');
+		    $.ajax({
+		        url:"{:url('upStatus')}",
+		        type:'post',
+		        dataType:'json',
+		        data:{id:id,status:status},
+		        success:function(data){
+		          if (data.code == 200) {
+		            layer.msg(data.message);
+		          }else{
+		            layer.msg(data.message);
+		          }
+		        }
+		    })
+		});
+	});  
+
+	// 修改跳转
+	function edit(id) {
+		location.href = 'edit.html?id='+id;
+	}
+
+	// 删除
+	function del(id) {
+		layer.confirm('确定删除吗？', {icon: 3, title:'提示'}, function(index){
+			$.ajax({
+				url:"del",
+				type:"POST",
+				dataType:"JSON",
+				data:{id:id},
+				success:function (res) {
+					if (res.code == 200) {
+						layer.msg(res.message);
+						$('tr').remove("[value=" + id + "]");
+					}else{
+						layer.msg(res.message);
+						return false;
+					}
+				}
+			})
+		  	layer.close(index);
+		});
+	}
+</script>
+</html>

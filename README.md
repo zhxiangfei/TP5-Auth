@@ -138,3 +138,6 @@ hospit_role表 系统角色表 用来存储所有的角色 hospitauth_id字段�
 <td>创建时间</td>
 </tr>
 </table>
+
+
+代码实现暂以“系统管理员”模块为例，即Hospituser

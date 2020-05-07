@@ -87,12 +87,13 @@
 							{/if}
 							<td>
 								<div class="layui-btn-group">
-									<button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="edit" onclick="edit({$vo.id})">
+									{$vo.operate}
+									<!-- <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="edit" onclick="edit({$vo.id})">
 									    <i class="fa fa-edit" aria-hidden="true"></i> 修 改
 									</button>
 									<button type="button" class="layui-btn layui-btn-sm layui-btn-primary" onclick="del({$vo.id})">
 									    <i class="fa fa-trash" aria-hidden="true"></i> 删 除
-									</button>
+									</button> -->
 								</div>
 							</td>
 						</tr>
